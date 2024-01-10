@@ -2,6 +2,7 @@ package com.ecommercebe.project.Service;
 
 import com.ecommercebe.project.Dto.ProductRequest;
 import com.ecommercebe.project.Entity.Product;
+import com.ecommercebe.project.Entity.Request.ProductSearchQuery;
 import com.ecommercebe.project.Repository.ProductRepository;
 import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,8 @@ public class ProductService {
         product.setPrice(productRequest.getPrice());
         product.setExplanation(productRequest.getExplanation());
         productRepository.save(product);
+    }
+    public List<Product> searchProduct(ProductSearchQuery productSearchQuery){
+        return productRepository.findByNameStartsWithIgnoreCaseOrCategoryIdIn(productSearchQuery.getValue(),productSearchQuery.getIdList());
     }
 }
